@@ -1,0 +1,105 @@
+
+*{
+    font-family:Montserrat ;
+}
+.info-table{
+    border-collapse: collapse;
+    width: 95%;
+}
+.info-table thead{
+    padding-bottom: 20px;
+    height: 60px;
+    color: white;
+    background-color: rgb(31, 28, 28);
+}
+th{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+tr{
+    text-align: center;
+    margin-bottom: 25px;
+}
+td{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: whitesmoke          
+}
+table tbody tr:hover td {
+    background-color: rgb(223, 216, 216)
+}
+
+
+.info-button{
+    font-family: Montserrat;
+    cursor: pointer;
+    border-radius: 14px;
+    background-color: transparent;
+    color: black;
+    height:25px
+}
+.info-button:hover{
+    background-color: #04AA6D;
+    color:white;
+    transition-duration: 0.5s;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.del:hover{
+    cursor: pointer;
+    /* background-color: rgb(162, 209, 209); */
+    background-color: #04AA6D;
+    /* background-color: rgb(229, 70, 70); */
+}
+.table-div{
+    margin-left: 3%;
+    margin-top: 3%;
+    width: 900px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.main-container{
+    display: flex;
+}
+.search {
+width: 300px;
+position: fixed;
+top: 25%; /* Adjust this value to set the distance from the top */
+left: 70%; /* Adjust this value to set the distance from the left */
+z-index: 1; /* Ensure search box appears above other content */
+}
+a {
+    text-decoration: none;
+}
+
+.search-box{
+   width: 100%;
+}
+.searchBox{
+    border: 1.7px solid black;
+    border-radius: 14px;
+    width: 100%;
+    height: 30px;
+}
+.search-button,.delete-button{
+    margin-top: 10%;
+    width: 50%;
+    margin-left: 30%;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: transparent;
+    color: black;
+    border: 1.7px solid #04AA6D;
+    height: 35px;
+}
+.search-button:hover{
+    background-color: #04AA6D;
+    color:white;
+    transition-duration: 0.5s;
+}
+.delete-button:hover{
+    background-color: #ff0702;
+    color:white;
+    border: 1.7px solid #ff0702;
+    transition-duration: 0.3s;
+}

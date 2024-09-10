@@ -1,0 +1,215 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'homePage.css' %}">
+    <link rel="stylesheet" href="{% static 'mainPage.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    
+    <title>Student Report</title>
+    <style>
+        a{
+            height: 30%;
+        }
+        span{
+            margin-top: 6%;
+            height: 30%;
+        }
+        ul{
+            margin-left: 2%;
+        }
+        .table-div{
+            margin-top: 1%;
+            margin-bottom: 1%;
+        }
+        .add-marks{
+            background-color: transparent;
+            border-radius: 12px;
+            width: 90%;
+            height: 35px;
+            margin-top: 13%;
+            margin-left:5%;
+            
+        }
+        .add-marks:hover{
+            
+            background-color: #04AA6D;
+            color:white;
+            transition-duration: 0.5s;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+            cursor: pointer;
+        }
+        p{
+            margin-top: 20%;
+            margin-left: 20%;
+        }
+        .updates{
+            padding-left: 4%;
+        }
+        #dispMarks li{
+            padding-top: 5%;
+        }
+        #dispResult li{
+            padding-top: 1%;
+            padding-bottom: 1%;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container" id="navbar">
+        <div class="logo-name">&#10002; Study Grader.</div>
+        <div class="analyseButtonDiv">
+            <a href="/main">
+                <button type ="button" class="analyse">Return to Main</button>
+            </a>
+        </div>
+    </div> 
+    <h2 style="text-align: center;">Detailed Report</h2>
+    <div class="student-info">
+        <h3 style="padding-left: 3%;">Student Information:</h3>
+    <ul>
+        <li>Registration Number: {{ student.reg_no }}</li>
+        <li>Student Name: {{ student.student_name }}</li>
+        <li>Student Average: {{average_marks}}</li>
+        <li>Student Aptitude: {{result}}</li>
+    </ul>
+    </div>
+    
+    <div class="main-container">
+        <div class="table-div">
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>SL-No</th>
+                        <th>Subject ID</th>
+                        <th>Subject Name</th>
+                        <th>Marks</th>
+                        <th>Delete Entry</th>
+                    </tr>
+                </thead>
+                
+                    {% for mark in marks %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td> 
+                            <td>{{ mark.subject_id }}</td>
+                            <td>{{ mark.subject_name }}</td>
+                            <td>{{ mark.marks }}</td>
+                            <td><a href="{% url 'delete_mark' mark.subject_id student.reg_no %}">&#10060;</a></td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                          <td colspan="5">No marks found for this student.</td>
+                        </tr>
+                    {% endfor %}
+                        
+            </table>
+            
+        </div>
+        <div class="updates" style="display: flex; width: 20%;">
+            <p>Click To enter Marks for student:
+                <a href="{% url 'add_marks' student.reg_no %}">
+                    <button class="add-marks">Add Subject Marks</button>
+                </a>
+            </p>
+        </div>
+        
+        
+    
+    </div>
+    <h3 style="padding-left: 3%;">Performance Vs Average:</h3>
+    <div class="myGraph" style="display: flex;">
+        <canvas id="myChart" style="width:100%;max-width:600px;margin-left: 2%;margin-top: 1%;padding-top:10px ;padding-bottom: 3%;"></canvas>
+        <ul id="dispMarks" style="margin-left: 10%;margin-top: 3%;">
+            
+        </ul>
+    </div>
+    <h3 style="padding-left: 3%;">Result:</h3>
+    <div class="result">
+        <ul id="dispResult"></ul>
+    </div>
+    
+    
+    <script>
+        const xValues = JSON.parse("{{ marklist|safe }}");
+        console.log(xValues); // Verify that the array is correctly parsed
+        const yValues = ["DS", "EEFM", "PCAP", "OE", "PE"];
+        const subjectAverageMarks = JSON.parse("{{subject_average_marks|safe }}"); // Assuming subject_average_marks is a list passed from the backend
+    
+        console.log(subjectAverageMarks);
+        new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: yValues,
+                datasets: [{
+                    label: 'Individual Marks',
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,1.0)",
+                    borderColor: "rgba(0,0,255,0.1)",
+                    data: xValues
+                }, {
+                    label: 'Average Marks',
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(255,0,0,1.0)",
+                    borderColor: "rgba(255,0,0,0.1)",
+                    data: subjectAverageMarks
+                }]
+            },
+            options: {
+                legend: { display: false },
+                scales: {
+                    yAxes: [{ ticks: { min: 20, max: 100 } }],
+                }
+            }
+        });
+        let belowAvg = [];
+        const ulElement = document.getElementById('dispMarks');
+        for (let i = 0; i < Math.min(xValues.length, subjectAverageMarks.length); i++) {
+            if (xValues[i] < subjectAverageMarks[i]) {
+                belowAvg.push(yValues[i]);
+                ulElement.innerHTML += `<li> ${yValues[i]}'s marks are below average computed marks.</li>`;
+            }
+            else{
+                ulElement.innerHTML += `<li> ${yValues[i]}'s marks are above average computed marks.</li>`;
+            }
+        }
+        let result = "{{ result }}";
+        console.log(result);
+        const disResUl = document.getElementById('dispResult');
+        if(result ==="Fast Learner"){
+            disResUl.innerHTML = 
+            `<li>Eligible for honours.</li>
+            <li>Additional Courses should be recommended.</li>`;
+            if (belowAvg.length!=0){
+                for(let i=0;i<belowAvg.length;i++){
+                    disResUl.innerHTML += 
+                        `<li>Subject ${belowAvg[i]} has to be worked on.</li>`;
+                }
+            }
+            disResUl.innerHTML += 
+                        `<li>Good Performance Overall!!</li>`;
+        }
+        else{
+            disResUl.innerHTML = 
+            `<li>Not eligible for honours.</li>
+            <li>Ensure student meets respective professor for improvement of grade</li>`;
+            if (belowAvg.length!=0){
+                for(let i=0;i<belowAvg.length;i++){
+                    disResUl.innerHTML += 
+                        `<li>Subject ${belowAvg[i]} has to be worked on.</li>`;
+                }
+            }
+            disResUl.innerHTML += 
+                        `<li>Performance can be better!</li>`;
+        }
+
+    </script>
+</body>
+</html>
+

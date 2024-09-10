@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'homePage.css' %}">
+    <link rel="stylesheet" href="{% static 'mainPage.css' %}">
+    <title>Info</title>
+</head>
+<body>
+    <div class="nav-container" id="navbar">
+        <div class="logo-name">&#10002; Study Grader.</div>
+        <div class="analyseButtonDiv">
+            <a href="/add_student">
+                <button type ="button" class="analyse">Add Student &#10010;</button>
+            </a>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="table-div">
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>SL-No</th>
+                        <th>Registration-No</th>
+                        <th>Name</th>
+                        <th>Detailed-Report</th>
+                        <th>Delete Record</th>
+                    </tr>
+                </thead>
+                    {% for student in students %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td> <!-- Assuming you want to display serial number -->
+                            <td>{{ student.reg_no }}</td>
+                            <td>{{ student.student_name }}</td>
+                            <td>
+                                <a href="{% url 'report' student.reg_no %}"><button class="info-button">Click Here</button></a>
+                             </td>
+                            <td><a href="{% url 'delete_student' student.reg_no %}" style="text-decoration: none;">&#9986;</a></td>
+                        </tr>
+                    
+                    {% empty %} 
+                    <tr>
+                        <td colspan="5">No records found.</td>
+                    </tr>
+                    {% endfor %}         
+            </table>
+        </div>
+        <div class="search">
+            <div class="search-box">
+                <h2>	&#x1f50e;SEARCH HERE : </h2>
+                <form method="get" action="{% url 'main' %}">
+                    <input type="text" class="searchBox" name="q" placeholder=" Enter Student Name">
+                    <br>
+                    <button class="search-button">Search</button>
+                </form>
+                <!-- <button class="search-button">SEND EMAIL</button> -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

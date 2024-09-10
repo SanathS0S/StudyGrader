@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'mainPage.css' %}">
+    <link rel="stylesheet" href="{% static 'homePage.css' %}">
+    
+    
+    <title>AddMarks</title>
+    <style>
+        .pageBody{
+            width: 100%;
+            height: 53%;
+            padding-top: 8%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        form{
+            width: 50%;
+            height: 100%;
+            padding-left: 18%;
+        }
+        .form-container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50%;
+            width: 70%;
+            
+        }
+       
+        #subject_id,#marks,#subject_name{
+            margin-left: 8%;
+            width: 45%;
+            height: 23px;
+            border-radius: 10px;
+            background-color: beige;
+        }
+        #subject_id:hover,#subject_name:hover,#marks:hover{
+            background-color: rgb(160, 207, 231);
+        }
+        .submit-button{
+            width: 23%;
+            height: 7%;
+            margin-left: 20%;
+            cursor: pointer;
+            border-radius: 12px;
+            background-color:rgb(224, 224, 214)
+        }
+        .submit-button:hover{
+            background-color: #04AA6D;
+            color:white;
+            transition-duration: 0.5s;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+        label{
+            border-color: #04AA6D;
+            display: flex;
+            width: 62%;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .bottom{
+            background-color: black;
+            width: 100%;
+            margin-top: 5%;
+            height: 89px;
+    }
+    </style>
+</head>
+<body>
+    <div class="nav-container" id="navbar">
+        <div class="logo-name">&#10002; Study Grader.</div>
+        <a href="/report/{{reg_no}}">
+            <button type ="button" class="analyse">Return to Report</button>
+        </a>
+    </div>    
+    <div class="pageBody">
+        <form action="/add_marks/{{ reg_no }}/" method="post">
+            {% csrf_token %}
+            <label for="subject_id">Subject ID:</label><br>
+            <input type="text" id="subject_id" name="subject_id" required><br>
+            <br>
+            <label for="subject_name">Subject Name:</label><br>
+            <input type="text" id="subject_name" name="subject_name" required><br>
+            <br>
+            <label for="marks">Marks:</label><br>
+            <input type="number" id="marks" name="marks" required><br>
+            <br><br>
+            <input type="submit" value="Submit" class="submit-button">
+        </form>
+    </div>
+    <div class="bottom"></div>
+</body>
+</html>
+

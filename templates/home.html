@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'homePage.css' %}">
+    
+    <title>Home</title>
+    <style>
+        .externalLinks{
+            display: flex;
+            padding-top: 15px;
+            justify-content: flex-end;
+            padding-left: 15px;
+            padding-right: 20px;
+            width: 97%;
+            align-items: center;
+        }
+        span{
+           
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container" id="navbar">
+        <div class="logo-name">&#10002; Study Grader.</div>
+        <div class="analyseButtonDiv">
+            <a href="/login">
+                <button type ="button" class="analyse">&#x2604;  Analyse Now</button>
+            </a>
+        </div>
+    </div>
+    <div class="main-body">
+        <div class="welcome-info">
+            <p><img src="{% static 'graduation-cap.png' %}" width="20" height="20" class="cap">Welcome to Study Grader</p>
+            <div class="inner-welcome-info">
+                &#10077; Study grader is a simple tool to determine whether a student is a slow or fast learner by utilizing our machine learning algorithm,
+                based on the students result necessary steps are carried forward and actions are taken accordingly.
+                To get started please click on the <em>Analyse Now</em> button.&#10078;
+            </div>
+        </div>
+    </div>
+    <div class="animation">
+        <video width="500" height="300" autoplay muted loop>
+            <source src="{% static 'trial.mp4' %}" type="video/mp4">
+          </video>
+    </div>
+    <div class="clear"></div>
+    <div class="strip">
+        <center>
+            <div class="text">
+                Get Started Now &#10087;
+            </div> 
+        </center>
+        
+        <div class="nextlogin">
+            <a href="/login" target="_blank">
+                <button class="analyse">&#10138; Analyse Now</button>
+            </a>
+        </div>
+        
+        
+        <div class="externalLinks">
+            <span style="color: white;">Source Code: <br> </span><a href="https://github.com/SanathS0S/ByteFlow" target="_blank" rel="noopener noreferrer">
+                <img src="{% static 'git.png' %}" width="30" height="30" class="git" >
+            </a>
+        </div>    
+    </div>
+</body>
+</html>
+

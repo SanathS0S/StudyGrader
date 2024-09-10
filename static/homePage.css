@@ -1,0 +1,136 @@
+body,html{
+    width: 100%;
+    height:100vh;
+    
+    margin-top: 0%;
+    margin-left: 0%;
+    font-family: Montserrat;
+}
+.nav-container {
+    background-color:black;
+    color: white;
+    font-size: 30px;
+    height: 65px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+.nextlogin{
+  text-align: center;
+}
+.externalLinks{
+    width: 20%;
+    display: flex;
+    align-items: flex-end;
+}
+.logo-name {
+    margin-left: 2%;
+    margin-right: auto; 
+}
+
+.analyseButtonDiv {
+    margin-right: 20px;
+}
+
+.analyse{
+    width: 140px;
+    height: 35px;
+    cursor: pointer;
+    border-radius: 14px;
+    font-family: Montserrat;
+    background-color: transparent;
+    color: white;
+    border-width: 2px;
+    border: 1.7px solid #04AA6D;
+    position:static;
+    
+}
+
+.analyse:hover{
+    background-color: #04AA6D;
+    color:white;
+    transition-duration: 0.5s;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+   
+}
+.main-body{
+    float: left;
+    margin-top: 3%;
+    height: 75%;
+    background-color: white;
+    width:45%;
+    
+}
+.welcome-info{
+    color: black;
+    width:70%;
+    text-align: center;
+    padding-top: 5%;
+    border:2px solid black;
+    margin-left: 10%;
+    height: 80%;
+}
+.inner-welcome-info{
+    width: 70%;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    border:1px solid #04AA6D;
+    text-align: center;
+    padding: 5%;
+    position: relative;
+}
+.inner-welcome-info:hover{
+    
+    color: white;
+    background-color: #04AA6D;
+    transition: 0.5s;
+}
+
+p{
+    font-size: 20px;
+    text-align: center;
+}
+
+.animation{
+    margin-top: 8%;
+    float: right;
+    width: 50%;
+    text-align: center;
+    padding-right: 3%;
+}
+.clear {
+    clear: both; /* Ensure the element moves below the floated elements */
+}
+.strip{
+    background-color: black;
+    height:200px;
+    /* text-align: center; */
+    
+    
+}
+.text{
+    padding-top: 2%;
+    padding-bottom: 3%;
+    color: white;
+    font-size: 20px;
+    
+}
+video {
+    width: 80%;
+    height: auto;
+    border:solid 2.5px black;
+    padding: 6px;
+}
+.cap{
+    margin-right: 2%;
+}
+.git{
+    cursor: pointer;
+
+    
+    padding: 0;
+}
+a{
+    text-decoration: none;
+}

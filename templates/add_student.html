@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'addStudentPage.css' %}">
+    <link rel="stylesheet" href="{% static 'mainPage.css' %}">
+    <link rel="stylesheet" href="{% static 'homePage.css' %}">
+    <style>
+        #fileUpload {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+            width: 60%;
+            
+        }
+        .submitFile {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submitFile:hover {
+            background-color: #45a049;
+        }
+        .inputForm {
+            width: 30%;
+            height:40%;
+            background-color: beige;
+            padding: 20px;
+            margin-top: 4%;
+            margin-right: 10%;
+            border-radius: 8px;
+            border-style: solid;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .submit-button1{
+            width: 35%;
+            height: 18%;
+            cursor: pointer;
+            border-radius: 12px;
+            background-color:rgb(224, 224, 214)
+        }
+        input[type="file"] {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+            width: 100%;
+        }
+        input[type="file"]::file-selector-button {
+            border: 2px solid #ccc;
+            border-radius: 0.2em;
+            font-family: Montserrat;
+            color: black;
+            background-color: rgb(255, 255, 255);
+            cursor: pointer;
+        }
+        p{
+            margin-top: 12px;
+            font-size: 1rem;
+            text-align: left;
+        }
+    </style>
+    
+    <title>Add</title>
+</head>
+<body>
+    <div class="nav-container" id="navbar">
+        <div class="logo-name">&#10002; Study Grader.</div>
+        <div class="analyseButtonDiv">
+            <a href="/main">
+                <button type ="button" class="analyse">Return to Main</button>
+            </a>
+        </div>
+    </div>
+    <div class="pageBody">   
+        <div class="form-container">
+            <form action="/add_student/" method="post">
+                {% csrf_token %}
+                <label for="supervisor_id">Supervisor ID:</label><br>
+                <input type="text" id="supervisor_id" name="supervisor_id" required><br>
+                <br>
+                <label for="reg_no">Registration Number:</label><br>
+                <input type="text" id="reg_no" name="reg_no" required><br>
+                <br>
+                <label for="student_name">Student Name:</label><br>
+                <input type="text" id="student_name" name="student_name" required><br>
+                <br><br>
+                <input type="submit" value="Submit" class="submit-button">
+            </form>
+        </div>
+        <form  class="inputForm" action="/upload_student/" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            <br>
+            <label class = "file-input-label" for="fileUpload">Upload Database File:</label>
+            <br>
+            <input type="file" id="fileUpload" name="fileUpload" accept=".xlsx, .xls">
+            <br><br>  
+            <input type="submit" value="Upload File" class="submit-button1">
+         
+            <p>{{msg}}</p>
+            
+        </form>
+        
+    </div> 
+    <div class="bottom"></div>
+</body>
+</html>
+
